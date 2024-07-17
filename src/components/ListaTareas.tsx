@@ -6,11 +6,11 @@ type ListaTareas= {
     borrarTarea: (index:number) => void
 }
 
-const ListaTareas = ({listaTareas, borrarTarea}: ListaTareas) => {
+export const ListaTareas = ({listaTareas, borrarTarea}: ListaTareas) => {
     return(
         <div className="taskList">
             {listaTareas.map((tarea,index) => (
-                <Tarea key={index} tarea={tarea} borrarTarea={() => borrarTarea}></Tarea>
+                <Tarea key={index} tarea={tarea} borrarTarea={() => borrarTarea(index)}></Tarea>
             )
             )}
         </div>

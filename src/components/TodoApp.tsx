@@ -1,25 +1,38 @@
 import { useState } from "react"
+import { ListaTareas } from "./ListaTareas"
 
 export const TodoApp = () => {
 
     const [ nuevaTarea, setnuevaTarea] = useState<string>('')
     const [ listaTareas, setListaTareas] = useState<string[]>([])
+
+
+
     const handleAddTask = () => {
+        if(nuevaTarea.trim() === '') return
+        setListaTareas(tareasAnteriores => [...tareasAnteriores, nuevaTarea])
+        setnuevaTarea('')
     }
+
+
+    const handleBorrarTarea = (index:number) => {
+        setListaTareas(tareas => tareas.filter((_,i) => i !== index))
+    }
+    
 
     return (        
         <div>
              <h1>Lista de Tareas</h1>
-             <div>
+             <div className="flex">
                 <input 
-                type="text" 
-                value={nuevaTarea}
-                onChange={(e) => setnuevaTarea(e.target.value)}
-                placeholder="Nueva Tarea"
+                    type="text" 
+                    value={nuevaTarea}
+                    onChange={(e) => setnuevaTarea(e.target.value)}
+                    placeholder="Nueva Tarea"
                 />
-                <button onClick={handleAddTask}></button>
+                <button onClick={handleAddTask}>Agregar Tarea</button>
              </div>
-             <ListaTareas></ListaTareas>
+             <ListaTareas listaTareas={listaTareas} borrarTarea={handleBorrarTarea}></ListaTareas>
         </div>
     )
 }
